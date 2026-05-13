@@ -9,7 +9,7 @@ class Vehicle(models.Model):
     ]
     marka = models.CharField(max_length=50)
     model = models.CharField(max_length=50)
-    vin = models.CharField(max_length=17, unique=True) # VIN musi być unikalny [cite: 189, 236]
+    vin = models.CharField(max_length=17, unique=True)
     rok = models.IntegerField()
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='dostępny')
 
@@ -22,8 +22,14 @@ class Booking(models.Model):
     data_start = models.DateTimeField()
     data_koniec = models.DateTimeField()
 
+    def __str__(self):
+        return f"Rezerwacja: {self.pojazd} przez {self.użytkownik}"
+
 class TechnicalLog(models.Model):
     pojazd = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
     data = models.DateField(auto_now_add=True)
     przebieg = models.IntegerField()
     opis_naprawy = models.TextField()
+
+    def __str__(self):
+        return f"Log: {self.pojazd} - {self.data}"
