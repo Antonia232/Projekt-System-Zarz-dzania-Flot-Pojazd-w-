@@ -33,26 +33,5 @@ class TechnicalLog(models.Model):
     przebieg = models.IntegerField()
     opis_naprawy = models.TextField()
 
-<<<<<<< HEAD
     def __str__(self):
         return f"Log: {self.pojazd} - {self.data}"
-=======
-def clean(self):
-        if self.start_date >= self.end_date:
-            raise ValidationError("Data zakończenia musi być późniejsza niż data rozpoczęcia.")
-
-        # Logika Q objects: Sprawdzenie nakładania się terminów
-        conflicts = Booking.objects.filter(
-            vehicle=self.vehicle,
-        ).filter(
-            Q(start_date__range=(self.start_date, self.end_date)) |
-            Q(end_date__range=(self.start_date, self.end_date)) |
-            Q(start_date__lte=self.start_date, end_date__gte=self.end_date)
-        )
-
-        if self.pk: # Pomijamy aktualną rezerwację przy edycji
-            conflicts = conflicts.exclude(pk=self.pk)
-
-        if conflicts.exists():
-            raise ValidationError("Ten samochód jest już zarezerwowany w wybranym terminie.")
->>>>>>> 0ca26624c357b81ded5626f270229fc1aa701169
